@@ -1,0 +1,31 @@
+{
+  "updated_at": "2026-11-24",
+  "source": "https://ai-webcatalog.space/ru/pricing-index",
+  "methodology_url": "https://ai-webcatalog.space/ru/methodology/pricing",
+  "tools_clean_total": 411,
+  "with_free_tier": 232,
+  "with_trial": 114,
+  "no_vpn_total": 166,
+  "sbp_total": 120,
+  "mir_total": 83,
+  "medians": {
+    "USD": {
+      "median": 15.0,
+      "p25": 9.99,
+      "p75": 20.0,
+      "tools": 201
+    },
+    "RUB": {
+      "median": 890.0,
+      "p25": 491.25,
+      "p75": 1465.0,
+      "tools": 110
+    },
+    "EUR": {
+      "median": 12.0,
+      "p25": 8.675,
+      "p75": 18.4875,
+      "tools": 24
+    }
+  }
+}
