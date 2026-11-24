@@ -13,6 +13,7 @@
 ## Содержание
 
 - [Индекс цен и доступность](#-индекс-цен-и-доступность)
+- [Открытые данные (JSON / CSV)](#-открытые-данные-json--csv)
 - [Готовые подборки под задачи](#-готовые-подборки-под-задачи)
 - [Чат-боты и ИИ-ассистенты](#чат-боты-и-ии-ассистенты)
 - [Универсальные ИИ-платформы](#универсальные-ии-платформы)
@@ -38,6 +39,16 @@
 | Работают без VPN | **166** | [Фильтр «Без VPN»](https://ai-webcatalog.space/ru?access=no_vpn) |
 | Оплата по СБП / картами «Мир» | **120** / **83** | [Каталог](https://ai-webcatalog.space/ru) |
 
+## 📦 Открытые данные (JSON / CSV)
+
+Машиночитаемые выгрузки для аналитики, скриптов и ИИ-агентов (лицензия CC0 1.0):
+
+| Файл | Что внутри |
+| --- | --- |
+| [`data/ai-tools-ru.json`](data/ai-tools-ru.json) | 78 сервисов: тарифы, минимальная цена, статус `no_vpn`, способы оплаты из РФ |
+| [`data/ai-tools-ru.csv`](data/ai-tools-ru.csv) | Та же выборка в формате CSV (открывается как таблица прямо на GitHub) |
+| [`data/pricing-index.json`](data/pricing-index.json) | Актуальные медианы цен в RUB/USD/EUR (P25/P50/P75) и сводка доступности |
+
 ## 🎯 Готовые подборки под задачи
 
 - [Лучшие нейросети для монтажа видео](https://ai-webcatalog.space/ru/best/ai-video-editing-software) — 15 сервисов
@@ -53,9 +64,9 @@
 - [Нейросети для написания диплома](https://ai-webcatalog.space/ru/best/ai-tools-for-diploma) — 6 сервисов
 - [Нейросети для текста и копирайтинга](https://ai-webcatalog.space/ru/best/ai-text-writer) — 5 сервисов
 - [Нейросети для удаления фона](https://ai-webcatalog.space/ru/best/ai-background-remover) — 34 сервисов
-- [Нейросети для улучшения качества фото](https://ai-webcatalog.space/ru/best/photo-upscaler-enhancer) — 32 сервисов
+- [Нейросети для улучшения качества фото](https://ai-webcatalog.space/ru/best/photo-upscaler-enhancer) — 32 сервиса
 - [Нейросети для перевода и дубляжа видео](https://ai-webcatalog.space/ru/best/neyroseti-dlya-perevoda-video) — 13 сервисов
-- [Нейросети для создания логотипа](https://ai-webcatalog.space/ru/best/neyroset-dlya-sozdaniya-logotipa) — 6 сервисов
+- [Нейросети для создания логотипа](https://ai-webcatalog.space/ru/best/neyroseti-dlya-sozdaniya-logotipa) — 6 сервисов
 - [Нейросети для удаления водяных знаков](https://ai-webcatalog.space/ru/best/udalenie-vodyanyh-znakov) — 9 сервисов
 - [Нейросети для создания комиксов](https://ai-webcatalog.space/ru/best/ai-komiksy) — 3 сервиса
 - [Нейросети для создания презентаций](https://ai-webcatalog.space/ru/best/ai-presentation-makers) — 8 сервисов
@@ -74,7 +85,7 @@
 | [GigaChat (ГигаЧат)](https://giga.chat/) | ГигаЧат — диалоговая AI-модель от Сбера, созданная для работы с русским языком и понимающая английский. | Бесплатно | Нет | Не требуется | [Подробнее](https://ai-webcatalog.space/ru/tool/giga-chat) |
 | [Qwen Studio](https://qwen.ai/) | ИИ-помощник для работы с текстами, документами, кодом, изображениями и видео: в чате можно прикрепить файл или таблицу, попросить сводку, объяснение… | Фримиум, от €3.99/мес | Нет | Посредники | [Подробнее](https://ai-webcatalog.space/ru/tool/chat-qwen-ai) |
 | [Poe](https://poe.com/) | Объединяет ботов разных разработчиков в одном сервисе. | Фримиум, от €5.74/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/poe-com) |
-| [Grok](https://x.ai/grok?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia) | Grok — мультимодальный ИИ-ассистент от компании x.ai, объединяющий диалоговый чат-бот, генерацию текста и кода, создание изображений и видео, а также… | Фримиум, от $30/мес | Нет | — | [Подробнее](https://ai-webcatalog.space/ru/tool/x-ai) |
+| [Grok](https://x.ai/grok) | Grok — мультимодальный ИИ-ассистент от компании x.ai, объединяющий диалоговый чат-бот, генерацию текста и кода, создание изображений и видео, а также… | Фримиум, от $30/мес | Нет | — | [Подробнее](https://ai-webcatalog.space/ru/tool/x-ai) |
 | [Z.ai Chat](https://chat.z.ai/) | Гибрид чат-бота и автономного ИИ-агента на базе моделей GLM — пишет код, анализирует данные и собирает презентации. | Фримиум, от $16.2/мес | Нет | Посредники | [Подробнее](https://ai-webcatalog.space/ru/tool/chat-z-ai) |
 
 ## Универсальные ИИ-платформы
@@ -119,7 +130,7 @@
 | --- | --- | --- | --- | --- | --- |
 | [Colossyan](https://www.colossyan.com/) | Облачная платформа для корпоративного обучения, которая превращает регламенты, презентации и документы в видеоролики с виртуальными дикторами и… | Триал, от $27/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/colossyan-com) |
 | [AI Studios](https://www.deepbrain.io/aistudios) | Создает видеоролики с фотореалистичными цифровыми дикторами на основе текста, веб-ссылок или файлов презентаций. | Фримиум, от $24/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/deepbrain-io) |
-| [Magiclight AI](https://www.magiclight.ai/?code=guide12) | Платформа для сквозного создания сюжетных видеороликов и мультфильмов длительностью до 50 минут. | Триал, от $15/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/magiclight-ai) |
+| [Magiclight AI](https://www.magiclight.ai/) | Платформа для сквозного создания сюжетных видеороликов и мультфильмов длительностью до 50 минут. | Триал, от $15/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/magiclight-ai) |
 | [Frameo.AI](https://frameo.ai/) | Создаёт фильмы, рекламу и ролики для соцсетей по идее, сценарию или референсам. | Платно, от $25/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/frameo-ai) |
 | [Pixmax AI](https://www.pixmax.ai/) | Веб-платформа с бесконечным узловым холстом для генерации видео, изображений, текста, звука и 3D-объектов через внешние нейросети. | Триал, от $1 | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/pixmax-ai) |
 | [Tunee](https://www.tunee.ai/en) | Мультимодальная нейросеть, которая пишет треки, вокал и сразу собирает под них клипы прямо в чате. | Фримиум, от $18/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/tunee-ai) |
