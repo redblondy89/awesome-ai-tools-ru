@@ -33,8 +33,8 @@
 | Показатель | Значение | Подробнее |
 | --- | --- | --- |
 | Медианная цена в рублях | **890 ₽/мес** (110 сервисов) | [Индекс цен](https://ai-webcatalog.space/ru/pricing-index) |
-| Медианная цена в долларах | **$15/мес** (201 сервис) | [Все тарифы](https://ai-webcatalog.space/ru/prices) |
-| Медианная цена в евро | **€12/мес** (24 сервиса) | [Все тарифы](https://ai-webcatalog.space/ru/prices) |
+| Медианная цена в долларах | **$15/мес** (200 сервисов) | [Все тарифы](https://ai-webcatalog.space/ru/prices) |
+| Медианная цена в евро | **€12/мес** (25 сервисов) | [Все тарифы](https://ai-webcatalog.space/ru/prices) |
 | С бесплатным тарифом / с триалом | **232** / **114** | [Каталог](https://ai-webcatalog.space/ru) |
 | Работают без VPN | **166** | [Фильтр «Без VPN»](https://ai-webcatalog.space/ru?access=no_vpn) |
 | Оплата по СБП / картами «Мир» | **120** / **83** | [Каталог](https://ai-webcatalog.space/ru) |
@@ -63,10 +63,10 @@
 - [Нейросети для оживления фото](https://ai-webcatalog.space/ru/best/photo-animation-tools) — 29 сервисов
 - [Нейросети для написания диплома](https://ai-webcatalog.space/ru/best/ai-tools-for-diploma) — 6 сервисов
 - [Нейросети для текста и копирайтинга](https://ai-webcatalog.space/ru/best/ai-text-writer) — 5 сервисов
-- [Нейросети для удаления фона](https://ai-webcatalog.space/ru/best/ai-background-remover) — 34 сервисов
+- [Нейросети для удаления фона](https://ai-webcatalog.space/ru/best/ai-background-remover) — 34 сервиса
 - [Нейросети для улучшения качества фото](https://ai-webcatalog.space/ru/best/photo-upscaler-enhancer) — 32 сервиса
 - [Нейросети для перевода и дубляжа видео](https://ai-webcatalog.space/ru/best/neyroseti-dlya-perevoda-video) — 13 сервисов
-- [Нейросети для создания логотипа](https://ai-webcatalog.space/ru/best/neyroseti-dlya-sozdaniya-logotipa) — 6 сервисов
+- [Нейросети для создания логотипа](https://ai-webcatalog.space/ru/best/neyroset-dlya-sozdaniya-logotipa) — 6 сервисов
 - [Нейросети для удаления водяных знаков](https://ai-webcatalog.space/ru/best/udalenie-vodyanyh-znakov) — 9 сервисов
 - [Нейросети для создания комиксов](https://ai-webcatalog.space/ru/best/ai-komiksy) — 3 сервиса
 - [Нейросети для создания презентаций](https://ai-webcatalog.space/ru/best/ai-presentation-makers) — 8 сервисов
@@ -77,20 +77,20 @@
 
 | Сервис | Что делает | Тариф | Без VPN | Оплата из РФ | Карточка |
 | --- | --- | --- | --- | --- | --- |
-| [ChatGPT](https://chatgpt.com/) | ChatGPT — мультимодальная ИИ-платформа от OpenAI для диалога, исследований, создания контента, программирования и автономного выполнения задач через… | Фримиум, от $8/мес | Нет | — | [Подробнее](https://ai-webcatalog.space/ru/tool/chatgpt-com) |
+| [ChatGPT](https://chatgpt.com/) | ChatGPT — мультимодальная ИИ-платформа от OpenAI для диалога, исследований, создания контента, программирования и автономного выполнения задач через… | Фримиум, от €8/мес | Нет | Посредники | [Подробнее](https://ai-webcatalog.space/ru/tool/chatgpt-com) |
 | [Claude](https://claude.ai/) | ИИ-платформа для разработки, анализа документов и автоматизации рабочих задач с помощью автономных агентов. | Фримиум, от €18/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/claude-ai) |
 | [DeepSeek](https://www.deepseek.com/) | Пишет и редактирует тексты, объясняет сложные темы, ищет информацию и помогает с кодом. | Фримиум | Нет | Посредники | [Подробнее](https://ai-webcatalog.space/ru/tool/deepseek-com) |
 | [Perplexity AI](https://www.perplexity.ai/) | Ищет информацию в интернете и собирает её в связный ответ со ссылками на источники — помогает разобраться в теме, сравнить варианты или собрать… | Фримиум, от $9/мес | Нет | Посредники | [Подробнее](https://ai-webcatalog.space/ru/tool/perplexity-ai) |
 | [Алиса AI](https://alice.yandex.ru/) | Мультимодальный ассистент помогает писать тексты и код, анализировать документы, генерировать изображения и разбирать учебные задачи. | Фримиум, от 100 ₽ | Да | СБП, Мир, ЮMoney | [Подробнее](https://ai-webcatalog.space/ru/tool/alice-yandex-ru) |
-| [GigaChat (ГигаЧат)](https://giga.chat/) | ГигаЧат — диалоговая AI-модель от Сбера, созданная для работы с русским языком и понимающая английский. | Бесплатно | Нет | Не требуется | [Подробнее](https://ai-webcatalog.space/ru/tool/giga-chat) |
 | [Qwen Studio](https://qwen.ai/) | ИИ-помощник для работы с текстами, документами, кодом, изображениями и видео: в чате можно прикрепить файл или таблицу, попросить сводку, объяснение… | Фримиум, от €3.99/мес | Нет | Посредники | [Подробнее](https://ai-webcatalog.space/ru/tool/chat-qwen-ai) |
 | [Poe](https://poe.com/) | Объединяет ботов разных разработчиков в одном сервисе. | Фримиум, от €5.74/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/poe-com) |
-| [Grok](https://x.ai/grok) | Grok — мультимодальный ИИ-ассистент от компании x.ai, объединяющий диалоговый чат-бот, генерацию текста и кода, создание изображений и видео, а также… | Фримиум, от $30/мес | Нет | — | [Подробнее](https://ai-webcatalog.space/ru/tool/x-ai) |
+| [Grok](https://x.ai/grok) | Grok — мультимодальный ИИ-ассистент от компании x.ai, объединяющий диалоговый чат-бот, генерацию текста и кода, создание изображений и видео, а также… | Фримиум, от $8/мес | Нет | Посредники | [Подробнее](https://ai-webcatalog.space/ru/tool/x-ai) |
 | [Z.ai Chat](https://chat.z.ai/) | Гибрид чат-бота и автономного ИИ-агента на базе моделей GLM — пишет код, анализирует данные и собирает презентации. | Фримиум, от $16.2/мес | Нет | Посредники | [Подробнее](https://ai-webcatalog.space/ru/tool/chat-z-ai) |
+| [Chat AI](https://chataibot.ru/) | Сервис объединяет в одном окне нейросети для работы с текстом, кодом, графикой и видео без необходимости регистрироваться на десятках сторонних платформ. | Фримиум, от 300 ₽/мес | Да | СБП, Мир, T-Pay | [Подробнее](https://ai-webcatalog.space/ru/tool/chataibot-ru) |
 
 ## Универсальные ИИ-платформы
 
-Показано: 10 сервисов · [Смотреть все (81) на сайте](https://ai-webcatalog.space/ru/category/universal-ai-platforms)
+Показано: 10 сервисов · [Смотреть все (82) на сайте](https://ai-webcatalog.space/ru/category/universal-ai-platforms)
 
 | Сервис | Что делает | Тариф | Без VPN | Оплата из РФ | Карточка |
 | --- | --- | --- | --- | --- | --- |
@@ -111,7 +111,7 @@
 
 | Сервис | Что делает | Тариф | Без VPN | Оплата из РФ | Карточка |
 | --- | --- | --- | --- | --- | --- |
-| [Midjourney](https://www.midjourney.com) | Генерирует иллюстрации, концепт-арт и короткие видеоролики на основе текстовых описаний и референсов. | Платно, от $10/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/midjourney-com) |
+| [Midjourney](https://www.midjourney.com/) | Генерирует иллюстрации, концепт-арт и короткие видеоролики на основе текстовых описаний и референсов. | Платно, от $10/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/midjourney-com) |
 | [Recraft](https://www.recraft.ai/) | Создаёт векторную графику, иллюстрации и логотипы на одном холсте. | Фримиум, от $12/мес | Нет | Посредники | [Подробнее](https://ai-webcatalog.space/ru/tool/recraft-ai) |
 | [Krea AI](https://www.krea.ai/) | Браузерная студия для генерации, точечного редактирования и апскейла изображений, видео и 3D-сцен, объединяющая десятки нейросетей в одном окне. | Фримиум, от $9/мес | Нет | Крипта | [Подробнее](https://ai-webcatalog.space/ru/tool/krea-ai) |
 | [Magnific](https://www.magnific.com/) | Облачная креативная студия (бывший Freepik), где в одном окне работают генераторы и 10K-апскейлер изображений, нейросети для видео, звука и 3D вместе с… | Платно, от €16/мес | Нет | Зарубежные карты | [Подробнее](https://ai-webcatalog.space/ru/tool/magnific-com) |
@@ -211,7 +211,7 @@
 
 | Категория | Сервисов |
 | --- | ---: |
-| [Универсальные ИИ-платформы](https://ai-webcatalog.space/ru/category/universal-ai-platforms) | 81 |
+| [Универсальные ИИ-платформы](https://ai-webcatalog.space/ru/category/universal-ai-platforms) | 82 |
 | [Нейросети для фото и изображений](https://ai-webcatalog.space/ru/category/image-generation) | 69 |
 | [Нейросети для создания видео](https://ai-webcatalog.space/ru/category/video-generation) | 67 |
 | [ИИ-агенты](https://ai-webcatalog.space/ru/category/ai-agents) | 56 |
@@ -227,31 +227,31 @@
 | [Нейросети для голоса и озвучки](https://ai-webcatalog.space/ru/category/voice-speech) | 17 |
 | [Продуктивность](https://ai-webcatalog.space/ru/category/productivity) | 14 |
 | [Транскрипция и субтитры](https://ai-webcatalog.space/ru/category/transcription) | 14 |
-| [Разработка игр](https://ai-webcatalog.space/ru/category/game-dev) | 13 |
 | [AI-аватары и цифровые люди](https://ai-webcatalog.space/ru/category/ai-avatars) | 13 |
+| [Разработка игр](https://ai-webcatalog.space/ru/category/game-dev) | 13 |
 | [Образование](https://ai-webcatalog.space/ru/category/education) | 12 |
 | [Создание сайтов и приложений](https://ai-webcatalog.space/ru/category/no-code) | 12 |
-| [E-commerce и маркетплейсы](https://ai-webcatalog.space/ru/category/ecommerce) | 11 |
 | [Нейросети для 3D-моделей и графики](https://ai-webcatalog.space/ru/category/3d-models) | 11 |
+| [E-commerce и маркетплейсы](https://ai-webcatalog.space/ru/category/ecommerce) | 11 |
 | [ИИ-поиск и исследования](https://ai-webcatalog.space/ru/category/research-search) | 9 |
-| [Нейросети для работы с текстом](https://ai-webcatalog.space/ru/category/text-generation) | 8 |
 | [Данные и аналитика](https://ai-webcatalog.space/ru/category/data-analytics) | 8 |
-| [Презентации](https://ai-webcatalog.space/ru/category/presentations) | 8 |
 | [ИИ для встреч и заметок](https://ai-webcatalog.space/ru/category/meetings-notes) | 8 |
+| [Презентации](https://ai-webcatalog.space/ru/category/presentations) | 8 |
+| [Нейросети для работы с текстом](https://ai-webcatalog.space/ru/category/text-generation) | 8 |
 | [Документы и OCR](https://ai-webcatalog.space/ru/category/documents-ocr) | 7 |
 | [Продажи и CRM](https://ai-webcatalog.space/ru/category/sales-crm) | 6 |
 | [Нейросети для перевода и локализации](https://ai-webcatalog.space/ru/category/translation) | 6 |
-| [Нейросети для копирайтинга и статей](https://ai-webcatalog.space/ru/category/writing) | 5 |
 | [Резюме и карьера](https://ai-webcatalog.space/ru/category/career-resume) | 5 |
-| [Юридические ИИ](https://ai-webcatalog.space/ru/category/legal) | 4 |
+| [Нейросети для копирайтинга и статей](https://ai-webcatalog.space/ru/category/writing) | 5 |
 | [Академическое письмо и антиплагиат](https://ai-webcatalog.space/ru/category/academic-writing) | 4 |
-| [Здоровье и медицина](https://ai-webcatalog.space/ru/category/health) | 3 |
-| [Поддержка клиентов](https://ai-webcatalog.space/ru/category/customer-support) | 3 |
-| [Недвижимость](https://ai-webcatalog.space/ru/category/real-estate) | 3 |
+| [Юридические ИИ](https://ai-webcatalog.space/ru/category/legal) | 4 |
 | [ИИ-браузеры и браузерные агенты](https://ai-webcatalog.space/ru/category/ai-browsers) | 3 |
+| [Поддержка клиентов](https://ai-webcatalog.space/ru/category/customer-support) | 3 |
+| [Здоровье и медицина](https://ai-webcatalog.space/ru/category/health) | 3 |
+| [Недвижимость](https://ai-webcatalog.space/ru/category/real-estate) | 3 |
 | [Таблицы и Excel](https://ai-webcatalog.space/ru/category/spreadsheets-excel) | 2 |
-| [HR и рекрутинг](https://ai-webcatalog.space/ru/category/hr-recruiting) | 1 |
 | [Кибербезопасность](https://ai-webcatalog.space/ru/category/cybersecurity) | 1 |
+| [HR и рекрутинг](https://ai-webcatalog.space/ru/category/hr-recruiting) | 1 |
 
 ## 🤝 Как добавить сервис или обновить данные
 
