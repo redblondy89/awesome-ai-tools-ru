@@ -5,12 +5,14 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import csv
 from datetime import datetime, timezone
 import json
 import os
 import re
 import sys
 import urllib.error
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 import urllib.request
 from typing import Any
 
@@ -434,11 +436,21 @@ def format_number(value: float) -> str:
     return f"{value:.2f}".rstrip("0").rstrip(".")
 
 
-def format_pricing(detail: dict[str, Any]) -> str:
-    """Форматирует модель тарификации и минимальную платную цену."""
-    pricing_code = str(detail.get("pricing") or "").lower()
-    base_label = PRICING_LABELS.get(pricing_code, "—")
+TRACKING_QUERY_PARAMS = {
+    "ref",
+    "code",
+    "via",
+    "source",
+    "fbclid",
+    "gclid",
+    "yclid",
+    "affiliate",
+    "aff",
+}
 
+
+def extract_min_price(detail: dict[str, Any]) -> tuple[float | None, str | None, str | None]:
+    """Возвращает минимальную платную цену, валюту и период тарифа."""
     plans = detail.get("pricing_plans") or []
     paid_plans = [
         p
@@ -447,9 +459,8 @@ def format_pricing(detail: dict[str, Any]) -> str:
         and isinstance(p.get("price"), (int, float))
         and float(p["price"]) > 0
     ]
-
     if not paid_plans:
-        return base_label
+        return None, None, None
 
     currency_rank = {"RUB": 0, "USD": 1, "EUR": 2}
     paid_plans.sort(
@@ -459,28 +470,48 @@ def format_pricing(detail: dict[str, Any]) -> str:
         )
     )
     best = paid_plans[0]
-    currency = str(best.get("currency") or "").upper()
-    prefix, suffix = CURRENCY_FORMATS.get(currency, ("", f" {currency}" if currency else ""))
-    period = PERIOD_SUFFIX.get(str(best.get("period") or "").lower(), "")
-    price_str = f"от {prefix}{format_number(float(best['price']))}{suffix}{period}"
+    price_val = float(best["price"])
+    currency = str(best.get("currency") or "").upper() or None
+    period = str(best.get("period") or "").lower() or None
+    return price_val, currency, period
+
+
+def format_pricing(detail: dict[str, Any]) -> str:
+    """Форматирует модель тарификации и минимальную платную цену."""
+    pricing_code = str(detail.get("pricing") or "").lower()
+    base_label = PRICING_LABELS.get(pricing_code, "—")
+
+    price_val, currency, period = extract_min_price(detail)
+    if price_val is None or not currency:
+        return base_label
+
+    prefix, suffix = CURRENCY_FORMATS.get(currency, ("", f" {currency}"))
+    period_suffix = PERIOD_SUFFIX.get(period or "", "")
+    price_str = f"от {prefix}{format_number(price_val)}{suffix}{period_suffix}"
 
     if base_label == "—":
         return price_str
     return f"{base_label}, {price_str}"
 
 
-def format_payments(detail: dict[str, Any]) -> str:
-    """Форматирует доступные способы оплаты из России."""
+def extract_ru_payments(detail: dict[str, Any]) -> list[str]:
+    """Возвращает человекочитаемые способы оплаты, доступные в РФ."""
     methods = detail.get("payment_methods") or []
     slugs = {str(m.get("slug") or "").lower() for m in methods if m.get("slug")}
+    return [label for key, label in RU_PAYMENT_PRIORITY if key in slugs]
 
-    ru_labels = [label for key, label in RU_PAYMENT_PRIORITY if key in slugs]
+
+def format_payments(detail: dict[str, Any]) -> str:
+    """Форматирует доступные способы оплаты из России."""
+    ru_labels = extract_ru_payments(detail)
     if ru_labels:
         return ", ".join(ru_labels[:3])
 
     if detail.get("resellers"):
         return "Посредники"
 
+    methods = detail.get("payment_methods") or []
+    slugs = {str(m.get("slug") or "").lower() for m in methods if m.get("slug")}
     if slugs & FOREIGN_PAYMENT_SLUGS:
         return "Зарубежные карты"
 
@@ -494,17 +525,27 @@ def format_vpn(detail: dict[str, Any]) -> str:
     return "Да" if detail.get("no_vpn") else "Нет"
 
 
-def valid_website_url(url: Any) -> str | None:
+def clean_website_url(url: Any) -> str | None:
+    """Проверяет URL и удаляет трекинговые/партнёрские query-параметры."""
     if not isinstance(url, str):
         return None
     u = url.strip()
-    if u.startswith("https://") or u.startswith("http://"):
+    if not (u.startswith("https://") or u.startswith("http://")):
+        return None
+    parts = urlsplit(u)
+    if not parts.query:
         return u
-    return None
+    filtered_q = [
+        (k, v)
+        for k, v in parse_qsl(parts.query, keep_blank_values=True)
+        if not (k.lower().startswith("utm_") or k.lower() in TRACKING_QUERY_PARAMS)
+    ]
+    clean_query = urlencode(filtered_q, doseq=True)
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, clean_query, parts.fragment))
 
 
-def build_readme() -> tuple[str, int]:
-    """Собирает итоговый README.md и возвращает (текст, число сервисов в таблицах)."""
+def build_catalog() -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
+    """Собирает README.md, плоский список сервисов и снапшот индекса цен."""
     categories = fetch_json("/api/catalog/categories?lang=ru")
     collections = fetch_json("/api/catalog/best?lang=ru")
     pricing_index = fetch_json("/api/catalog/pricing-index?lang=ru")
@@ -544,7 +585,7 @@ def build_readme() -> tuple[str, int]:
     details_by_slug = fetch_details_parallel(all_candidate_slugs)
 
     sections_rows: list[tuple[dict[str, Any], list[dict[str, Any]]]] = []
-    total_table_tools = 0
+    tools_records: list[dict[str, Any]] = []
     for section, candidates in section_candidates:
         final_items: list[dict[str, Any]] = []
         for item in candidates:
@@ -552,26 +593,41 @@ def build_readme() -> tuple[str, int]:
             detail = details_by_slug.get(slug)
             if not detail or not is_clean_tool(detail):
                 continue
-            site_url = valid_website_url(detail.get("website_url"))
+            site_url = clean_website_url(detail.get("website_url"))
             if not site_url:
                 continue
             raw_summary = str(item.get("short_description") or item.get("description") or "")
-            final_items.append(
-                {
-                    "slug": slug,
-                    "name": clean_markdown_cell(str(detail.get("name") or item["name"])),
-                    "website_url": site_url,
-                    "summary": format_summary(raw_summary),
-                    "pricing": format_pricing(detail),
-                    "vpn": format_vpn(detail),
-                    "payment": format_payments(detail),
-                }
-            )
+            summary = format_summary(raw_summary)
+            pricing_str = format_pricing(detail)
+            min_price, min_currency, min_period = extract_min_price(detail)
+            ru_methods = extract_ru_payments(detail)
+            payment_str = format_payments(detail)
+            no_vpn = bool(detail.get("no_vpn"))
+            row = {
+                "slug": slug,
+                "name": clean_markdown_cell(str(detail.get("name") or item["name"])),
+                "section": section["title"],
+                "website_url": site_url,
+                "catalog_url": f"{BASE_URL}/ru/tool/{slug}",
+                "summary": summary,
+                "pricing_model": str(detail.get("pricing") or "").lower() or None,
+                "pricing": pricing_str,
+                "min_price": min_price,
+                "min_price_currency": min_currency,
+                "min_price_period": min_period,
+                "no_vpn": no_vpn,
+                "vpn": format_vpn(detail),
+                "payment_ru": payment_str,
+                "payment_methods_ru": ru_methods,
+                "payment": payment_str,
+            }
+            final_items.append(row)
+            tools_records.append(row)
             if len(final_items) >= section["limit"]:
                 break
-        total_table_tools += len(final_items)
         sections_rows.append((section, final_items))
 
+    total_table_tools = len(tools_records)
     if total_table_tools < MIN_TOOLS_REQUIRED:
         raise RuntimeError(
             f"Собрано слишком мало чистых инструментов ({total_table_tools} < {MIN_TOOLS_REQUIRED})"
@@ -601,6 +657,28 @@ def build_readme() -> tuple[str, int]:
     )
     updated_badge = updated_date.replace("-", "--")
 
+    pricing_snapshot: dict[str, Any] = {
+        "updated_at": updated_date,
+        "source": f"{BASE_URL}/ru/pricing-index",
+        "methodology_url": f"{BASE_URL}/ru/methodology/pricing",
+        "tools_clean_total": clean_total,
+        "with_free_tier": with_free_tier,
+        "with_trial": with_trial,
+        "no_vpn_total": no_vpn_total,
+        "sbp_total": sbp_total,
+        "mir_total": mir_total,
+        "medians": {
+            cur: {
+                "median": m.get("median"),
+                "p25": m.get("p25"),
+                "p75": m.get("p75"),
+                "tools": m.get("tools"),
+            }
+            for cur, m in medians.items()
+            if cur in {"RUB", "USD", "EUR"}
+        },
+    }
+
     lines: list[str] = [
         "# Awesome AI Tools RU",
         "",
@@ -617,6 +695,7 @@ def build_readme() -> tuple[str, int]:
         "## Содержание",
         "",
         "- [Индекс цен и доступность](#-индекс-цен-и-доступность)",
+        "- [Открытые данные (JSON / CSV)](#-открытые-данные-json--csv)",
         "- [Готовые подборки под задачи](#-готовые-подборки-под-задачи)",
     ]
 
@@ -640,6 +719,16 @@ def build_readme() -> tuple[str, int]:
             f"| С бесплатным тарифом / с триалом | **{with_free_tier}** / **{with_trial}** | [Каталог]({BASE_URL}/ru) |",
             f"| Работают без VPN | **{no_vpn_total}** | [Фильтр «Без VPN»]({BASE_URL}/ru?access=no_vpn) |",
             f"| Оплата по СБП / картами «Мир» | **{sbp_total}** / **{mir_total}** | [Каталог]({BASE_URL}/ru) |",
+            "",
+            "## 📦 Открытые данные (JSON / CSV)",
+            "",
+            "Машиночитаемые выгрузки для аналитики, скриптов и ИИ-агентов (лицензия CC0 1.0):",
+            "",
+            "| Файл | Что внутри |",
+            "| --- | --- |",
+            f"| [`data/ai-tools-ru.json`](data/ai-tools-ru.json) | {plural_services(total_table_tools)}: тарифы, минимальная цена, статус `no_vpn`, способы оплаты из РФ |",
+            "| [`data/ai-tools-ru.csv`](data/ai-tools-ru.csv) | Та же выборка в формате CSV (открывается как таблица прямо на GitHub) |",
+            "| [`data/pricing-index.json`](data/pricing-index.json) | Актуальные медианы цен в RUB/USD/EUR (P25/P50/P75) и сводка доступности |",
             "",
             "## 🎯 Готовые подборки под задачи",
             "",
@@ -714,25 +803,120 @@ def build_readme() -> tuple[str, int]:
         ]
     )
 
-    return "\n".join(lines), total_table_tools
+    return "\n".join(lines), tools_records, pricing_snapshot
+
+
+def atomic_write_text(path: str, text: str) -> None:
+    parent = os.path.dirname(os.path.abspath(path))
+    if parent:
+        os.makedirs(parent, exist_ok=True)
+    tmp_path = f"{path}.tmp"
+    with open(tmp_path, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(text)
+    os.replace(tmp_path, path)
+
+
+def write_datasets(
+    data_dir: str,
+    tools_records: list[dict[str, Any]],
+    pricing_snapshot: dict[str, Any],
+) -> None:
+    """Атомарно сохраняет JSON и CSV выгрузки в каталог data_dir."""
+    os.makedirs(data_dir, exist_ok=True)
+
+    json_tools = [
+        {
+            "slug": r["slug"],
+            "name": r["name"],
+            "section": r["section"],
+            "website_url": r["website_url"],
+            "catalog_url": r["catalog_url"],
+            "pricing": r["pricing"],
+            "min_price": r["min_price"],
+            "currency": r["min_price_currency"],
+            "period": r["min_price_period"],
+            "no_vpn": r["no_vpn"],
+            "payment_ru": r["payment_ru"],
+            "summary": r["summary"],
+        }
+        for r in tools_records
+    ]
+
+    tool_lines = [
+        "    " + json.dumps(t, ensure_ascii=False, separators=(",", ":"))
+        for t in json_tools
+    ]
+    json_text = (
+        "{\n"
+        f'  "updated_at": {json.dumps(pricing_snapshot["updated_at"], ensure_ascii=False)},\n'
+        f'  "source": "{BASE_URL}/ru",\n'
+        '  "license": "CC0-1.0",\n'
+        f'  "count": {len(json_tools)},\n'
+        '  "tools": [\n'
+        + ",\n".join(tool_lines)
+        + "\n  ]\n}\n"
+    )
+    atomic_write_text(os.path.join(data_dir, "ai-tools-ru.json"), json_text)
+    atomic_write_text(
+        os.path.join(data_dir, "pricing-index.json"),
+        json.dumps(pricing_snapshot, ensure_ascii=False, indent=2) + "\n",
+    )
+
+    csv_path = os.path.join(data_dir, "ai-tools-ru.csv")
+    csv_tmp = f"{csv_path}.tmp"
+    with open(csv_tmp, "w", encoding="utf-8", newline="") as fh:
+        writer = csv.writer(fh, lineterminator="\n")
+        writer.writerow(
+            [
+                "name",
+                "slug",
+                "section",
+                "website_url",
+                "catalog_url",
+                "pricing",
+                "min_price",
+                "currency",
+                "period",
+                "no_vpn",
+                "payment_ru",
+                "summary",
+            ]
+        )
+        for r in tools_records:
+            writer.writerow(
+                [
+                    r["name"],
+                    r["slug"],
+                    r["section"],
+                    r["website_url"],
+                    r["catalog_url"],
+                    r["pricing"],
+                    "" if r["min_price"] is None else format_number(float(r["min_price"])),
+                    r["min_price_currency"] or "",
+                    r["min_price_period"] or "",
+                    "true" if r["no_vpn"] else "false",
+                    r["payment_ru"],
+                    r["summary"],
+                ]
+            )
+    os.replace(csv_tmp, csv_path)
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Генератор README.md для awesome-ai-tools-ru")
+    parser = argparse.ArgumentParser(description="Генератор README.md и датасетов для awesome-ai-tools-ru")
     parser.add_argument("--output", default="README.md", help="Путь к выходному файлу README.md")
+    parser.add_argument("--data-dir", default="data", help="Каталог для JSON/CSV выгрузок")
     args = parser.parse_args()
 
     try:
-        content, count = build_readme()
+        content, tools_records, pricing_snapshot = build_catalog()
     except Exception as err:
         print(f"Ошибка генерации README.md: {err}", file=sys.stderr)
         return 1
 
-    tmp_path = f"{args.output}.tmp"
-    with open(tmp_path, "w", encoding="utf-8", newline="\n") as fh:
-        fh.write(content)
-    os.replace(tmp_path, args.output)
-    print(f"OK: {args.output} обновлён ({count} сервисов в таблицах)")
+    atomic_write_text(args.output, content)
+    write_datasets(args.data_dir, tools_records, pricing_snapshot)
+    print(f"OK: {args.output} и {args.data_dir}/ обновлены ({len(tools_records)} сервисов)")
     return 0
 
 
